@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Attraction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff8dc;
+            text-align: center;
+        }
+        form {
+            margin: 20px auto;
+            padding: 20px;
+            max-width: 400px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: white;
+        }
+        label, input {
+            display: block;
+            margin: 10px 0;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Edit Attraction</h1>
+    </header>
+    <form action="/attractions/<%= attraction._id %>/update" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" name="name" value="<%= attraction.name %>" required>
+        <label for="location">Location:</label>
+        <input type="text" name="location" value="<%= attraction.location %>" required>
+        <label for="entryFee">Entry Fee:</label>
+        <input type="number" name="entryFee" value="<%= attraction.entryFee %>" required>
+        <label for="rating">Rating:</label>
+        <input type="number" name="rating" min="1" max="5" value="<%= attraction.rating %>" required>
+        <button type="submit">Update Attraction</button>
+    </form>
+</body>
+</html>

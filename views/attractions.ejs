@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attractions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7fa;
+        }
+        form, ul {
+            max-width: 500px;
+            margin: 20px auto;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: white;
+        }
+        form label, form input {
+            display: block;
+            margin: 10px 0;
+        }
+        button, a {
+            margin-top: 10px;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        button:hover, a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Attractions</h1>
+    </header>
+    <form action="/attractions" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" name="name" required>
+        <label for="location">Location:</label>
+        <input type="text" name="location" required>
+        <label for="entryFee">Entry Fee:</label>
+        <input type="number" name="entryFee" required>
+        <label for="rating">Rating:</label>
+        <input type="number" name="rating" min="1" max="5" required>
+        <button type="submit">Add Attraction</button>
+    </form>
+    <ul>
+        <% attractions.forEach(attraction => { %>
+            <li>
+                <strong><%= attraction.name %></strong> - <%= attraction.location %>
+                <form action="/attractions/<%= attraction._id %>/delete" method="POST" style="display:inline;">
+                    <button type="submit">Delete</button>
+                </form>
+                <a href="/attractions/<%= attraction._id %>/edit">Edit</a>
+            </li>
+        <% }) %>
+    </ul>
+</body>
+</html>

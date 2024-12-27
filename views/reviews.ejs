@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reviews</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0fff0;
+        }
+        form, ul {
+            max-width: 500px;
+            margin: 20px auto;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: white;
+        }
+        form label, form select, form input, form textarea {
+            display: block;
+            margin: 10px 0;
+            width: 100%;
+        }
+        button {
+            margin-top: 10px;
+            background-color: #28a745;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        ul li {
+            margin-bottom: 10px;
+        }
+        ul li form {
+            display: inline;
+        }
+        ul li button, ul li a {
+            margin: 0 5px;
+            background-color: #007bff;
+            color: white;
+            padding: 5px 10px;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        ul li button:hover, ul li a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Reviews</h1>
+    </header>
+    <form action="/reviews" method="POST">
+        <label for="attractionId">Attraction:</label>
+        <select name="attractionId" required>
+            <% reviews.forEach(review => { %>
+                <option value="<%= review.attraction._id %>"><%= review.attraction.name %></option>
+            <% }) %>
+        </select>
+        <label for="score">Score (1-5):</label>
+        <input type="number" name="score" min="1" max="5" required>
+        <label for="comment">Comment:</label>
+        <textarea name="comment" rows="3" required></textarea>
+        <button type="submit">Add Review</button>
+    </form>
+    <ul>
+        <% reviews.forEach(review => { %>
+            <li>
+                <strong><%= review.attraction.name %>:</strong> <%= review.score %>/5 - <%= review.comment %>
+                <form action="/reviews/<%= review._id %>/delete" method="POST">
+                    <button type="submit">Delete</button>
+                </form>
+                <a href="/reviews/<%= review._id %>/edit">Edit</a>
+            </li>
+        <% }) %>
+    </ul>
+</body>
+</html>
